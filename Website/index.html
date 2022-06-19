@@ -171,23 +171,6 @@
         margin-left: 7px;
     }
 
-    /*@keyframes blink {  
-        0% {    
-            background: #ffffff;  
-        }  
-        49% {    
-            background: #ffffff;  
-         }  
-        60% {    
-            background: transparent;  
-        }  
-        99% {    
-            background: transparent;  
-        }  100% {    
-            background: #ffffff;  
-        }
-        }*/
-
     #text {
         color: #fff;
         margin-left: 5px;
@@ -627,7 +610,7 @@
         xhttp.send();
     }
 
-    var ledState = document.getElementById("ledState").innerHTML; // might need to use documents ledState tracking element??
+    var ledState = document.getElementById("ledState").innerHTML; 
     // tracks last frame state to avoid 'sticky button' presses
     var button0WasOn = false;
     var button3WasOn = false;
