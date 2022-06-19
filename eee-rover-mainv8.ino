@@ -137,24 +137,21 @@ void ledON()
   digitalWrite(LED_BUILTIN, 1);
   String message = "{\"ledState\":\"ON\", \"sensorData_infra\":" + Infrared_freq + ", \"sensorData_radio\":" + Radio_freq + ", \"sensorData_acoustic\":" + Acoustic_freq + ",\"sensorData_magnet\":" + Magnetic_volt + "}";
   server.send(200, "text/plain", message);
-  Serial.println(message);
 }
 
 //Switch LED on and acknowledge
 void ledOFF()
 {
   digitalWrite(LED_BUILTIN, 0);
-  //String message = "{\"ledState\":\"OFF\"}";
-  String message = "{\"ledState\":\"ON\", \"sensorData_infra\":" + Infrared_freq + ", \"sensorData_radio\":" + Radio_freq + ", \"sensorData_acoustic\":" + Acoustic_freq + ",\"sensorData_magnet\":" + Magnetic_volt + "}";
+  String message = "{\"ledState\":\"OFF\", \"sensorData_infra\":" + Infrared_freq + ", \"sensorData_radio\":" + Radio_freq + ", \"sensorData_acoustic\":" + Acoustic_freq + ",\"sensorData_magnet\":" + Magnetic_volt + "}";
   server.send(200, "text/plain", message);
-  Serial.println(message);
 }
 
 void fetchData()
 {
   String message = "{\"ledState\":\"ON\", \"sensorData_infra\":" + Infrared_freq + ", \"sensorData_radio\":" + Radio_freq + ", \"sensorData_acoustic\":" + Acoustic_freq + ",\"sensorData_magnet\":" + Magnetic_volt + "}";
   server.send(200, "text/plain", message);
-  Serial.println(message);
+  //Serial.println(message);
 }
 
 void radioPwmRegist(){        //interrupt service routine
