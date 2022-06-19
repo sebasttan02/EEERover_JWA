@@ -1,6 +1,4 @@
 
-#include <Wire.h>
-
 const int pulsePin = 8; // Input signal connected to A1 of Metro M0 Express
 int pulseHigh; // Integer variable to capture High time of the incoming pulse
 int pulseLow; // Integer variable to capture Low time of the incoming pulse
@@ -9,6 +7,7 @@ float frequency; // Calculated Frequency
 
 void setup() {
 
+//Pin setup
 pinMode(pulsePin, INPUT);
 delay(5000);
 }
