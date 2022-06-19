@@ -205,7 +205,7 @@ void reset() {
   Infrared_freq = "0";
   Radio_freq = "0";
   Acoustic_freq = "0";
-  Magnetic_volt = "0";
+  Magnetic_volt = "240";
   
 }
 
@@ -360,7 +360,6 @@ void loop()
   server.handleClient();
   radiofrequency();
   infraredfrequency();
-  //Uncomment below when Seb upgrades the code
   acousticfrequency();
   magneticvoltage();
 
