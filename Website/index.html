@@ -507,7 +507,7 @@
             <span id="controller-off">&#127918</span>
             <span id="light_on">&#128161</span>
             <span id="light_off">&#128161</span>
-            <div id="LED">LED STATE: <span id="ledState"> OFF </span></div>
+            <div id="LED">LED STATE: <span id="ledState">OFF</span></div>
             <!--<br>Sensor data: <span id="sensorData"> Analysing... </span>
                 <br>Time: <span id="terminal__prompt--time">...</span>-->
         </div>
@@ -518,10 +518,12 @@
 
 <script>
 
-    var rover_ip = "172.20.10.3";
+    //var rover_ip = "172.20.10.2";
+    //var rover_ip = "172.20.10.3";
+    let rover_ip = "192.168.0.18";
     var xhttp = new XMLHttpRequest();
 
-    setInterval(pollGamepads, 50);
+    setInterval(pollGamepads, 75);
 
     var gp_indx;
     window.addEventListener("gamepadconnected", function (e) {
@@ -610,30 +612,40 @@
         xhttp.send();
     }
 
-    var ledState = document.getElementById("ledState").innerHTML; 
+
+    var ledState = document.getElementById("ledState").innerHTML;
     // tracks last frame state to avoid 'sticky button' presses
     var button0WasOn = false;
     var button3WasOn = false;
+    var button1WasOn = false;
     function gpControl(gp) {
         var button0 = gp.buttons[0]; //'A button' on Xbox controller
         var button3 = gp.buttons[3]; // 'Y button' on Xbox controller 
+        var button1 = gp.buttons[1]; // 'B' button 
         if (button0.pressed && !button0WasOn) {
             button0WasOn = true;
             // GO VIA EZRA'S ANALYZE BUTTON LOGIC DUE TO CONSOLE LOGGING
             getData(); insert_to_terminal(); getTime(); // Mirrors Analyse Button behaviour
-        } else if (button0WasOn) { // if was pressed before and is not pressed this frame then current state is off
+        } else if (!button0.pressed && button0WasOn) { // if was pressed before and is not pressed this frame then current state is off
             button0WasOn = false;
         }
         if (button3.pressed && !button3WasOn) { // Toggle LED
+            button3WasOn = true;
             if (ledState == "ON") {
-                button3WasOn = true;
+
                 ledOff();
             } else if (ledState == "OFF") {
-                button3WasOn = true;
+
                 ledOn();
             }
-        } else if (button3WasOn) {
+        } else if (!button3.pressed && button3WasOn) {
             button3WasOn = false;
+        }
+        if (button1.pressed && !button1WasOn) { // Send stop command if 'B' button pressed
+            button1WasOn = true;
+            var uri = ("http://" + rover_ip + "/move?leftSpeed=" + 0 + "&rightSpeed=" + 0); xhttp.open("GET", uri); xhttp.send();
+        } else if (!button1.pressed && button1WasOn) {
+            button1WasOn = false;
         }
     }
 
@@ -754,7 +766,7 @@
     is_online();
     setInterval(function () {
         is_online();
-    }, 30000);
+    }, 15000);
 
     //Check LED state every 2 sec
     led_connection();
@@ -784,10 +796,10 @@
     getData();
     setInterval(function () {
         getData();
-        setTimeout(function(){reset()}, 200)
+        setTimeout(function () { reset() }, 200)
     }, 3000);
 
-    
+
 
 
 
